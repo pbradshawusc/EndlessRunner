@@ -31,6 +31,7 @@ yAccel = 0;
 xSpeed = 5;
 ySpeed = 0;
 jumping = false;
+charging = 0;
 </string>
           </argument>
         </arguments>
@@ -81,6 +82,124 @@ self.vspeed = ySpeed;
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(charging == 30){
+    charging = 0;
+}
+else if(charging&gt;0){
+    charging++;
+    self.hspeed+=3;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_Last_Vine">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(swinging){
+    self.y = other.y+self.sprite_height;
+    self.vspeed = 0;
+    other.x = self.x;
+    jumping = false;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_Lower_Vine">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(swinging){
+    self.y = other.y+self.sprite_height;
+    self.vspeed = 0;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_Base_Breakable">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(self.charging &gt; 0){
+    with(other){
+        instance_destroy();
+    }
+}
+else{
+    if(ySpeed &gt;= 0 &amp;&amp; self.y-self.sprite_height &lt;= other.y){
+        self.y = other.y;
+        ySpeed = 0;
+        jumping = false;
+    }
+    else {
+        game_end();
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="4" ename="obj_Base_Hurdle">
       <action>
@@ -99,14 +218,13 @@ self.vspeed = ySpeed;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(ySpeed &gt; 0 &amp;&amp; self.y &lt;= other.y){
-    self.y = other.y-self.sprite_height;
+            <string>if(ySpeed &gt;= 0 &amp;&amp; self.y-self.sprite_height &lt;= other.y){
+    self.y = other.y;
     ySpeed = 0;
     jumping = false;
 }
 else {
-    gameDifficulty = 0;
-    jumping = true;
+    game_end();
 }
 </string>
           </argument>
@@ -132,12 +250,90 @@ else {
             <kind>1</kind>
             <string>if(ySpeed &gt; 0){
     ySpeed = 0;
-    self.y = other.y-self.sprite_height;
+    self.y = other.y;
     jumping = false;
 }
-else if(ySpeed &lt; 0){
-    ySpeed = 0;
-    self.y = other.y+other.sprite_height;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="90">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(charging == 0){
+    charging = 1;
+    sprite_index = spr_Base_Charge;
+    swinging = false;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="88">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>charging = 0;
+sprite_index = spr_Base_Crawl;
+swinging = false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="67">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(!jumping){
+    ySpeed = gameDifficulty*-20;
+    jumping = true;
+    swinging = true;
+    sprite_index = spr_Base_Swinging;
+    
+    charging = 0;
 }
 </string>
           </argument>
@@ -164,6 +360,10 @@ else if(ySpeed &lt; 0){
             <string>if(!jumping){
     ySpeed = gameDifficulty*-20;
     jumping = true;
+    sprite_index = spr_Base_Character;
+    
+    charging = 0;
+    swinging = false;
 }
 </string>
           </argument>

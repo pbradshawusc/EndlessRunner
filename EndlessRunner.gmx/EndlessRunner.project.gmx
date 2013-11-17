@@ -7,17 +7,29 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\spr_Base_Character</sprite>
+    <sprite>sprites\spr_Base_Swinging</sprite>
     <sprite>sprites\spr_Base_Floor</sprite>
     <sprite>sprites\spr_Base_Hurdle</sprite>
+    <sprite>sprites\spr_Base_Breakable</sprite>
+    <sprite>sprites\spr_Base_Charge</sprite>
+    <sprite>sprites\spr_Base_Crawl</sprite>
+    <sprite>sprites\spr_Vine</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkgrnd_Temp</background>
   </backgrounds>
   <paths name="paths"/>
   <objects name="objects">
-    <object>objects\obj_Base_Platform</object>
-    <object>objects\obj_Base_Character</object>
-    <object>objects\obj_Base_Hurdle</object>
+    <objects name="BaseObject">
+      <object>objects\obj_Base_Platform</object>
+      <object>objects\obj_Base_Character</object>
+      <object>objects\obj_Base_Hurdle</object>
+      <object>objects\obj_Vine</object>
+      <object>objects\obj_Base_Vine</object>
+      <object>objects\obj_Lower_Vine</object>
+      <object>objects\obj_Last_Vine</object>
+    </objects>
+    <object>objects\obj_Base_Breakable</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
